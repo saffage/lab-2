@@ -160,28 +160,25 @@ class Tasks
 
         int first = IO.ReadInt("Input elements...");
         int count = isFirstNumCounts ? 1 : 0;
+        int i = 1;
 
         switch (loop)
         {
             case Loop.For:
-                for (int i = 1; i < n; ++i) TaskHelper(first, ref count);
+                for (; i < n; ++i) TaskHelper(first, ref count);
                 break;
 
             case Loop.While:
+                while (i < n)
                 {
-                    int i = 1;
-                    while (i < n)
-                    {
-                        TaskHelper(first, ref count);
-                        ++i;
-                    }
+                    TaskHelper(first, ref count);
+                    ++i;
                 }
                 break;
 
             case Loop.DoWhile:
-                if (n != 1)
+                if (i < n)
                 {
-                    int i = 1;
                     do
                     {
                         TaskHelper(first, ref count);
@@ -191,15 +188,12 @@ class Tasks
                 break;
 
             case Loop.GoTo:
+            begin:
+                if (i < n)
                 {
-                    int i = 1;
-                begin:
-                    if (i < n)
-                    {
-                        TaskHelper(first, ref count);
-                        ++i;
-                        goto begin;
-                    }
+                    TaskHelper(first, ref count);
+                    ++i;
+                    goto begin;
                 }
                 break;
         }
@@ -293,31 +287,29 @@ class Tasks
         var loop = LoopHelper.RequestFromUser();
         var n = IO.ReadInt("Input N");
         var result = 0;
+        int i = 1;
 
         switch (loop)
         {
             case Loop.For:
-                for (int i = 1; i <= n; ++i)
+                for (; i <= n; ++i)
                 {
                     TaskHelper(i, ref result);
                 }
                 break;
 
             case Loop.While:
+                while (i <= n)
                 {
-                    int i = 1;
-                    while (i <= n)
-                    {
-                        TaskHelper(i, ref result);
-                        ++i;
-                    }
+                    TaskHelper(i, ref result);
+                    ++i;
                 }
                 break;
 
             case Loop.DoWhile:
-                if (n != 1)
+                if (i <= n)
                 {
-                    int i = 1;
+
                     do
                     {
                         TaskHelper(i, ref result);
@@ -327,15 +319,12 @@ class Tasks
                 break;
 
             case Loop.GoTo:
+            begin:
+                if (i <= n)
                 {
-                    int i = 1;
-                begin:
-                    if (i <= n)
-                    {
-                        TaskHelper(i, ref result);
-                        ++i;
-                        goto begin;
-                    }
+                    TaskHelper(i, ref result);
+                    ++i;
+                    goto begin;
                 }
                 break;
         }
@@ -391,7 +380,7 @@ class Tasks
                 break;
 
             case Loop.DoWhile:
-                if (n >= 3)
+                if (num >= 3)
                 {
                     do
                     {
@@ -600,7 +589,7 @@ class Tasks
                 break;
 
             case Loop.DoWhile:
-                if (n >= 1)
+                if (i >= 1)
                 {
                     do
                     {
