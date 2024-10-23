@@ -479,21 +479,23 @@ class Tasks
     //
     // S = sin(x + cos(2x + sin(3x + cos(4x + sin(5x + cos(6x + ...) ...)
     //
-    //  * до sin(nx) чи cos(nx) включно, sin(nx) чи cos(nx) залежить від парності n
+    //  * до sin(nx) чи cos(nx) включно
+    //  * sin(nx) чи cos(nx) залежить від парності n
     public static void DoAdditional3()
     {
-        static void TaskHelper(int i, double x, ref double result)
+        static void TaskHelper(int i, double x, ref double? result)
         {
-            result = i % 2 == 0
-                   ? i * x + Math.Sin(result)
-                   : i * x + Math.Cos(result);
+            var tmp = i % 2 == 0
+                     ? (result is double a ? Math.Sin(a) : 0)
+                     : (result is double b ? Math.Cos(b) : 0);
+            result = i * x + tmp;
         }
 
         var loop = LoopHelper.RequestFromUser();
         var n = IO.ReadInt("Input N");
         var x = IO.ReadDouble("Input X");
-        var result = 0.0;
         var i = n;
+        double? result = null;
 
         switch (loop)
         {
@@ -535,7 +537,7 @@ class Tasks
                 break;
         }
 
-        result = Math.Sin(result);
+        result = result is double r ? Math.Sin(r) : 0;
         Console.WriteLine(result);
     }
 
@@ -547,29 +549,21 @@ class Tasks
     //  * на кожні три рази двічі відбувається додавання, один раз віднімання
     public static void DoAdditional4()
     {
-        static void TaskHelper(int i, double x, ref double result)
+        static void TaskHelper(int i, double x, ref double? result)
         {
             var tmp = i % 2 == 0
-                   ? Math.Sin(result)
-                   : Math.Cos(result);
-
-            // for debug
-            var prev = result;
-            var f = i % 2 == 0 ? "sin" : "cos";
-            var op = (i + 1) % 3 == 0 ? "-" : "+";
-
+                    ? (result is double a ? Math.Sin(a) : 0)
+                    : (result is double b ? Math.Cos(b) : 0);
             result = (i + 1) % 3 == 0
                    ? i * x - tmp
                    : i * x + tmp;
-
-            Console.WriteLine($"{i}x {op} {f}({prev}) = {result}");
         }
 
         var loop = LoopHelper.RequestFromUser();
         var n = IO.ReadInt("Input N");
         var x = IO.ReadDouble("Input X");
-        var result = 0.0;
         var i = n;
+        double? result = null;
 
         switch (loop)
         {
@@ -611,7 +605,7 @@ class Tasks
                 break;
         }
 
-        result = Math.Sin(result);
+        result = result is double r ? Math.Sin(r) : 0;
         Console.WriteLine(result);
     }
 }
