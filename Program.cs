@@ -154,7 +154,7 @@ class Tasks
 
         if (n <= 0)
         {
-            Console.WriteLine(0);
+            Console.WriteLine("N must be natural");
             return;
         }
 
