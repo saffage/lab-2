@@ -420,7 +420,7 @@ class Tasks
     {
         static void TaskHelper(int i, double x, ref double result)
         {
-            result = (i + 1) % 3 == 0
+            result = i % 3 == 2
                    ? i * x - Math.Sin(result)
                    : i * x + Math.Sin(result);
         }
@@ -554,7 +554,7 @@ class Tasks
             var tmp = i % 2 == 0
                     ? (result is double a ? Math.Sin(a) : 0)
                     : (result is double b ? Math.Cos(b) : 0);
-            result = (i + 1) % 3 == 0
+            result = i % 3 == 2
                    ? i * x - tmp
                    : i * x + tmp;
         }
